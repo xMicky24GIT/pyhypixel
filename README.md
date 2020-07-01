@@ -1,6 +1,6 @@
 # pyhypixel
 
-This is an unofficial Python3 hypixel api wrapper.
+This is an unofficial Python3 [HypixelAPI](https://github.com/HypixelDev/PublicAPI) wrapper.
 
 ## Installation
 
@@ -42,7 +42,7 @@ guild_by_player = player.get_guild()
 
 ## Documentation
 
-A detailed documentation is available [here](DOCUMENTATION.md)
+A detailed documentation is available [here](https://github.com/xMicky24GIT/pyhypixel/blob/master/DOCUMENTATION.md)
 
 ## Contributing
 

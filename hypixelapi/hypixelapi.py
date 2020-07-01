@@ -16,6 +16,8 @@
 """
 A Python HypixelAPI wrapper.
 """
+from math import floor, sqrt
+
 from .util import validator
 from .util import mojang
 from .util import general
@@ -186,6 +188,81 @@ class Player:
         if validator.is_valid_api_key(api_key):
             self.api_key = api_key
 
+        self.raw_player = self.get_raw_player()
+
+
+    def get_name(self):
+        """
+        Returns player name.
+
+        New in version 1.1.0
+        """
+        return self.raw_player['displayname']
+
+
+    def get_achievements(self):
+        """
+        Returns a dict containing all the player achievements.
+
+        New in version 1.1.0
+        """
+        return self.raw_player['achievements']
+
+
+    def get_stats(self, game_type=None):
+        """
+        Args:
+        game_type: if None returns all games, if GameType enum returns specified game.
+        Returns a dict containing all the player stats.
+
+        New in version 1.1.0
+        """
+        stats = self.raw_player['stats']
+
+        if game_type is not None:
+            if isinstance(game_type, GameType):
+                return stats[game_type.db_name]
+
+            raise GameTypeNotValidException("Game type is not an instance of GameType")
+
+        return stats
+
+
+    def get_exp(self):
+        """
+        Returns player exp
+
+        New in version 1.1.0
+        """
+        return self.raw_player['networkExp']
+
+
+    def get_level(self):
+        """
+        Returns player level.
+        This is basically a copy of 
+        https://github.com/Plancke/hypixel-php/blob/master/src/util/Leveling.php
+
+        New in version 1.1.0
+        """
+        BASE = 10000
+        GROWTH = 2500
+
+        # Constants to generate the total amount of XP to complete a level
+        HALF_GROWTH = 0.5 * GROWTH
+
+        # Constants to look up the level from the total amount of XP
+        REVERSE_PQ_PREFIX = -(BASE - HALF_GROWTH) / GROWTH
+        REVERSE_CONST = REVERSE_PQ_PREFIX * REVERSE_PQ_PREFIX
+        GROWTH_DIVIDES_2 = 2 / GROWTH
+
+        exp = self.get_exp()
+
+        if exp < 0:
+            return 1
+
+        return floor(1 + REVERSE_PQ_PREFIX + sqrt(REVERSE_CONST + GROWTH_DIVIDES_2 * exp))
+
 
     def get_friends(self):
         """
@@ -197,7 +274,7 @@ class Player:
 
     def get_status(self):
         """
-        Returns a dict containing player status
+        Returns a dict containing player status.
         """
         response = general.do_request(BASE_URL, 'status', {'key': self.api_key, 'uuid': self.uuid})
 
@@ -254,6 +331,21 @@ class Player:
         ).json()
 
         return Guild(response['guild'], self.api_key)
+
+
+    def get_raw_player(self):
+        """
+        Returns raw json of the player
+
+        New in version 1.1.0
+        """
+        response = general.do_request(
+            BASE_URL,
+            'player',
+            {'key': self.api_key, 'uuid': self.uuid}
+        ).json()
+
+        return response['player']
 
 
 class Guild():
@@ -333,6 +425,15 @@ class Guild():
             return self.raw_guild['ranks']
 
         return None
+
+
+    def get_exp(self):
+        """
+        Returns guild exp.
+
+        New in version 1.1.0
+        """
+        return self.raw_guild['exp']
 
 
     def get_raw_guild(self):

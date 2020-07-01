@@ -1,5 +1,12 @@
 # pyhypixel documentation
 
+1. [HypixelAPI methods](#hypixelapi-methods)
+2. [Player methods](#player-methods)
+3. [Guild methods](#guild-methods)
+4. [GameTypes](#gametypes)
+
+---
+
 ## HypixelAPI methods
 
 This class contains general api methods.
@@ -12,11 +19,11 @@ api = hypixelapi.HypixelAPI('YOUR_HYPIXEL_API_KEY')
 
 Once you have your instance you can use the following methods:
 
-### get_api_key()
+### api.get_api_key()
 
 Returns a dictionary with all the informations regarding the api key in use.
 
-### get_player(player)
+### api.get_player(player)
 
 Args:
 
@@ -24,7 +31,7 @@ Args:
 
 Returns a [Player](#player-methods) instance with the given username or uuid.
 
-### get_guid_by_id(guild_id)
+### api.get_guid_by_id(guild_id)
 
 Args:
 
@@ -32,7 +39,7 @@ Args:
 
 Returns a [Guild](#guild-methods) instance with the given id.
 
-### get_guid_by_name(guild_name)
+### api.get_guid_by_name(guild_name)
 
 Args:
 
@@ -40,7 +47,7 @@ Args:
 
 Returns a [Guild](#guild-methods) instance with the given name.
 
-### get_leaderboards(game_type)
+### api.get_leaderboards(game_type)
 
 Args:
 
@@ -48,15 +55,15 @@ Args:
   
 Returns a dictionary containing the leaderboards (check the argument for details).
 
-### get_boosters()
+### api.get_boosters()
 
 Returns a dictionary containing all hypixel boosters.
 
-### get_player_count()
+### api.get_player_count()
 
 Returns current player count in the entire Hypixel network.
 
-### get_game_counts(game_type)
+### api.get_game_counts(game_type)
 
 Args:
 
@@ -64,11 +71,11 @@ Args:
 
 Returns a dictionary containing the game count (check the argument for details).
 
-### get_watchdog_stats()
+### api.get_watchdog_stats()
 
 Returns a dictionary containing statistics about Watchdog and Staff bans.
 
-### get_skyblock_auctions(page)
+### api.get_skyblock_auctions(page)
 
 Args:
 
@@ -76,13 +83,15 @@ Args:
 
 Returns a dictionary containing Skyblock auctions (max 1000 results per page). If the page is not found, `Page not found` is returned.
 
-### get_skyblock_bazaar()
+### api.get_skyblock_bazaar()
 
 Returns a dictionary containing all bazaar items and their sell summary, buy summary and quick status.
 
-### get_skyblock_news()
+### api.get_skyblock_news()
 
 Returns a dictionary containing skyblock news with a title, description and thread.
+
+---
 
 ## Player methods
 
@@ -100,29 +109,65 @@ player_by_username = api.get_player('e6c63b4bccc8465189d0b60fb6d56cc4')
 
 Once you have your instance you can use the following methods:
 
-### get_friends()
+### player.get_friends()
 
 Returns a dictionary containing a list of friends.
 
-### get_status()
+### player.get_status()
 
-Returns a dictionary containing the current status of a player (online and where, or offline)
+Returns a dictionary containing the current status of a player (online and where, or offline).
 
-### get_recent_games()
+### player.get_recent_games()
 
 Returns a dictionary containing max 100 recent games (games are stored for max 3 days).
 
-### get_skyblock_auctions()
+### player.get_skyblock_auctions()
 
 Returns a dictionary containing all the Skyblock auctions of the current player.
 
-### get_skyblock_profiles()
+### player.get_skyblock_profiles()
 
 Returns a dictionary containing all the Skyblock profiles of the current player.
 
-### get_guild()
+### player.get_guild()
 
 Returns the [Guild](#guild-methods) of the current player (None if the player isn't in a guild).
+
+### player.get_name()
+
+Returns the player display name.
+New in version 1.1.0
+
+### player.get_achievements()
+
+Returns a dictionary containing the player achievements.
+New in version 1.1.0
+
+### player.get_stats(game_type)
+
+Args:
+
+- **game_type**: default is `None` and returns stats for all the game modes. Accepts a [GameType](#gametypes) enum and returns stats only for the specified GameType. You can access GameTypes by using `hypixelapi.GameType.GAME_NAME` where _GAME_NAME_ is one of [this list](#gametypes).
+  
+Returns a dictionary containing the player stats (check the argument for details).
+New in version 1.1.0
+
+### player.get_exp()
+
+Returns the player exp.
+New in version 1.1.0
+
+### player.get_level()
+
+Returns the player current level.
+New in version 1.1.0
+
+### player.get_raw_player()
+
+Returns a raw json containing all the informations about the player.
+New in version 1.1.0
+
+---
 
 ## Guild methods
 
@@ -143,39 +188,48 @@ guild_by_player = player.get_guild()
 
 Once you have your instance you can use the following methods:
 
-### get_id()
+### guild.get_id()
 
 Returns the id of the current guild.
 
-### get_name()
+### guild.get_name()
 
 Returns the name of the current guild.
 
-### get_description()
+### guild.get_description()
 
 Returns the description of the current guild (None if it hasn't a description).
 
-### get_tag()
+### guild.get_tag()
 
 Returns the tag of the current guild (None if it hasn't a tag).
 
-### get_members()
+### guild.get_members()
 
 Returns a dictionary containing the list of guild members.
 
-### get_achievements()
+### guild.get_achievements()
 
 Returns a dictionary containing the list of achievements the guild has completed.
 
-### get_ranks()
+### guild.get_ranks()
 
 Returns a dictionary containing the list of guild's ranks.
 
-### get_raw_guild()
+### guild.get_raw_guild()
 
 Returns a raw json with all the informations about the guild ([example](https://github.com/HypixelDev/PublicAPI/blob/master/Documentation/methods/guild.md))
 
+### guild.get_exp()
+
+Returns the guild exp.
+New in version 1.1.0
+
+---
+
 ## GameTypes
+
+You can access those by using `hypixelapi.GameType.GAME_NAME` where _GAME_NAME_ is one of the list below.
 
 All the available GAME TYPES on Hypixel Network:
 
@@ -206,3 +260,7 @@ All the available GAME TYPES on Hypixel Network:
 - DUELS
 - SKYBLOCK
 - PIT
+
+---
+
+[GO UP](#pyhypixel-documentation)

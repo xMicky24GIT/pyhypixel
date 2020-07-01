@@ -22,14 +22,13 @@ with open("README.md", "r") as file:
 
 setuptools.setup(
     name="pyhypixel",
-    version="1.0.0",
+    version="1.1.0",
     author="SonoMichele",
     author_email="micheleviotto@protonmail.com",
     description="An unofficial HypixelAPI wrapper",
     long_description=long_desc,
     long_description_content_type="text/markdown",
     url="https://github.com/xMicky24GIT/pyhypixel",
-    license="GPLv3",
     packages=setuptools.find_packages(),
     install_requires=["requests"],
     classifiers=[
