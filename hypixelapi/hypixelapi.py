@@ -200,6 +200,18 @@ class Player:
         return self.raw_player['displayname']
 
 
+    def get_rank(self):
+        """
+        Returns player's rank. Returns None if player hasn't rank
+
+        New in version 1.2.0
+        """
+        if 'rank' in self.raw_player:
+            return self.raw_player['rank']
+        
+        return None
+
+
     def get_achievements(self):
         """
         Returns a dict containing all the player achievements.
@@ -262,6 +274,24 @@ class Player:
             return 1
 
         return floor(1 + REVERSE_PQ_PREFIX + sqrt(REVERSE_CONST + GROWTH_DIVIDES_2 * exp))
+
+
+    def get_karma(self):
+        """
+        Returns the karma of the player.
+
+        New in version 1.2.0
+        """
+        return self.raw_player['karma']
+
+
+    def get_mc_version(self):
+        """
+        Returns the last version of minecraft the player logged in to the server.
+
+        New in version 1.2.0
+        """
+        return self.raw_player['mcVersionRp']
 
 
     def get_friends(self):
@@ -434,6 +464,15 @@ class Guild():
         New in version 1.1.0
         """
         return self.raw_guild['exp']
+
+
+    def get_created(self):
+        """
+        Returns date when the guild was created as an epoch time format
+
+        New in version 1.2.0
+        """
+        return self.raw_guild['created']
 
 
     def get_raw_guild(self):

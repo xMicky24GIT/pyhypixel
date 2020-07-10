@@ -22,7 +22,7 @@ with open("README.md", "r") as file:
 
 setuptools.setup(
     name="pyhypixel",
-    version="1.1.0",
+    version="1.2.0",
     author="SonoMichele",
     author_email="micheleviotto@protonmail.com",
     description="An unofficial HypixelAPI wrapper",
