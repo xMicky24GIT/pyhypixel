@@ -164,8 +164,23 @@ New in version 1.1.0
 
 ### player.get_raw_player()
 
-Returns a raw json containing all the informations about the player.
+Returns a raw json containing all the information about the player.
 New in version 1.1.0
+
+### player.get_rank()
+
+Returns the player rank.
+New in version 1.2.0
+
+### player.get_karma()
+
+Returns the player karma.
+New in version 1.2.0
+
+### player.get_version()
+
+Returns the last version the player logged in to the sever.
+New in version 1.2.0
 
 ---
 
@@ -225,6 +240,10 @@ Returns a raw json with all the informations about the guild ([example](https://
 Returns the guild exp.
 New in version 1.1.0
 
+### guild.get_created()
+
+Returns date when the guild was created as an epoch time format.
+New in version 1.2.0
 ---
 
 ## GameTypes
