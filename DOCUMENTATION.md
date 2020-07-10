@@ -169,7 +169,7 @@ New in version 1.1.0
 
 ### player.get_rank()
 
-Returns the player rank.
+Returns the player rank. Returns None if player hasn't rank.
 New in version 1.2.0
 
 ### player.get_karma()
@@ -177,7 +177,7 @@ New in version 1.2.0
 Returns the player karma.
 New in version 1.2.0
 
-### player.get_version()
+### player.get_mc_version()
 
 Returns the last version the player logged in to the sever.
 New in version 1.2.0

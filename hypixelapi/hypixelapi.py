@@ -202,11 +202,14 @@ class Player:
 
     def get_rank(self):
         """
-        Returns player's rank.
+        Returns player's rank. Returns None if player hasn't rank
 
         New in version 1.2.0
         """
-        return self.raw_player['rank']
+        if 'rank' in self.raw_player:
+            return self.raw_player['rank']
+        
+        return None
 
 
     def get_achievements(self):
@@ -282,7 +285,7 @@ class Player:
         return self.raw_player['karma']
 
 
-    def get_version(self):
+    def get_mc_version(self):
         """
         Returns the last version of minecraft the player logged in to the server.
 
