@@ -157,6 +157,10 @@ New in version 1.1.0
 Returns the player exp.
 New in version 1.1.0
 
+### player.get_bedwars_exp()
+
+Returns the players bedwars exp.
+
 ### player.get_level()
 
 Returns the player current level.
