@@ -22,6 +22,7 @@ from .util import validator
 from .util import mojang
 from .util import general
 from .util import GameType
+from .util import ExpCalculator
 from .exceptions import GameTypeNotValidException, GuildIdNotValidException
 
 
@@ -247,6 +248,14 @@ class Player:
         New in version 1.1.0
         """
         return self.raw_player['networkExp']
+
+
+    def get_bedwars_exp(self):
+        """
+        Returns player bedwars exp
+        """
+        bw_exp = self.get_stats(GameType.BEDWARS)['Experience']
+        return ExpCalculator.ExpCalculator().getLevelForExp(bw_exp)
 
 
     def get_level(self):
